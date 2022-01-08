@@ -1,11 +1,12 @@
-import '../styles/globals.css';
+import '../styles/globals.css'
 
-import Head from 'next/head';
+import Head from 'next/head'
 
-import Header from '../components/Header';
-import Box from '@mui/material/Box';
+if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+  require('../mocks')
+}
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return (
     <>
       <Head>
@@ -13,12 +14,12 @@ function MyApp({ Component, pageProps }) {
         <meta name="description" content="Just for testing some react feature" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <Box sx={{ p: 1 }}>
+
+      <div>
         <Component {...pageProps} />
-      </Box>
+      </div>
     </>
-  );
+  )
 }
 
-export default MyApp;
+export default App

@@ -7,6 +7,10 @@
     {
       "title": "SWR",
       "content": [{ "title": "basic", "path": "/app/swr/basic" }]
+    },
+    {
+      "title": "Chakra",
+      "content": [{ "title": "basic", "path": "/app/chakra" }]
     }
   ]
 }

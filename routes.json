@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "title": "MSW",
+      "content": [{ "title": "basic", "path": "/app/msw" }]
+    },
+    {
+      "title": "SWR",
+      "content": [{ "title": "basic", "path": "/app/swr/basic" }]
+    }
+  ]
+}

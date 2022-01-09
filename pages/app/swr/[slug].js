@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import SWRApp from 'components/swr'
+import SWRApp from '/app/swr'
 
 export default function Slug() {
   const router = useRouter()

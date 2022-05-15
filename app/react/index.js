@@ -28,13 +28,19 @@ export default function Index() {
   }
 
   useEffect(() => {
-    setTab2Value(mockData[2])
+    if (selectedIndex !== 2 && tab2Value !== mockData[2]) {
+      if (confirm('Do you want to save?')) {
+        handleUpdateTab2Value()
+      } else {
+        setTab2Value(mockData[2])
+      }
+    }
   }, [selectedIndex])
 
   return (
     <>
       <div className="pb-4">
-        <div>{updateTime}</div>
+        <div>Update time: {updateTime}</div>
         <div>
           {mockData.map((value, index) => (
             <div key={value}>{`Tab ${index} => ${value}`}</div>
@@ -85,7 +91,7 @@ export default function Index() {
         </Tab.List>
         <Tab.Panels>
           <Panel0 selectedIndex={selectedIndex} handleUpdate={handleUpdate} />
-          <Panel1 handleUpdate={handleUpdate} />
+          <Panel1 selectedIndex={selectedIndex} handleUpdate={handleUpdate} />
           <Panel2
             inputValue={tab2Value}
             handleChangeTab2Value={handleChangeTab2Value}
@@ -109,15 +115,25 @@ function Panel0({ selectedIndex, handleUpdate }) {
 
   const handleSave = () => {
     mockData[0] = inputValue
+    setIsChanged(false)
     setInputValueMirror(inputValue)
     handleUpdate()
   }
 
+  const handleRecover = () => {
+    setInputValue(inputValueMirror)
+    setIsChanged(false)
+  }
+
   useEffect(() => {
     if (isChanged) {
-      setInputValue(inputValueMirror)
+      if (selectedIndex !== 0) {
+        confirm('Do you want to save?') ? handleSave() : handleRecover()
+      } else {
+        handleRecover()
+      }
     }
-  }, [inputValueMirror, isChanged, selectedIndex])
+  }, [selectedIndex])
 
   return (
     <Tab.Panel>
@@ -142,12 +158,26 @@ function Panel0({ selectedIndex, handleUpdate }) {
   )
 }
 
-function Panel1({ handleUpdate }) {
+function Panel1({ selectedIndex, handleUpdate }) {
+  const [isChanged, setIsChanged] = useState(false)
   const inputRef = useRef()
   const handleSave = () => {
     mockData[1] = inputRef.current.value
     handleUpdate()
   }
+
+  const handleChange = () => {
+    setIsChanged(true)
+  }
+
+  useEffect(() => {
+    if (isChanged) {
+      if (selectedIndex !== 1) {
+        confirm('Do you want to save?') && handleSave()
+      }
+      setIsChanged(false)
+    }
+  }, [selectedIndex])
 
   return (
     <Tab.Panel>
@@ -156,6 +186,7 @@ function Panel1({ handleUpdate }) {
         <input
           className="px-2 py-1 my-4 border-solid border-2"
           defaultValue={mockData[1]}
+          onChange={handleChange}
           ref={inputRef}
         />
       </div>

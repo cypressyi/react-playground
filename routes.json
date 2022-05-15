@@ -11,6 +11,10 @@
     {
       "title": "Chakra",
       "content": [{ "title": "basic", "path": "/app/chakra" }]
+    },
+    {
+      "title": "React",
+      "content": [{ "title": "basic", "path": "/app/react" }]
     }
   ]
 }
